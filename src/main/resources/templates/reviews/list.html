@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reviews</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <h1 class="title">Reviews</h1>
+        <a class="button is-link mb-3" th:href="@{/home}">Back to Home</a>
+
+        <a class="button is-primary mb-5" th:href="@{/reviews/new}">Add Review</a>
+        <div class="columns is-multiline">
+            <div class="column is-4" th:each="review : ${reviews}">
+                <div class="box">
+                    <h2 class="subtitle">
+                        <span th:text="${review.rating}"></span> stars
+                    </h2>
+                    <p th:text="${review.comment}"></p>
+                    <p class="is-size-7 has-text-weight-semibold">
+                        <span th:text="'Book: ' + ${review.book.title}"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="notification is-info" th:if="${#lists.isEmpty(reviews)}">
+            No reviews available. Be the first to add one!
+        </div>
+    </div>
+</section>
+</body>
+</html>

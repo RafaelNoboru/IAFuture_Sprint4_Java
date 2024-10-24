@@ -12,9 +12,6 @@ import java.util.List;
 public class BookController {
 
     @Autowired
-    private BookService bookService;
-
-    @Autowired
     private BookRepository bookRepository;
 
     @GetMapping("/books")
@@ -27,18 +24,5 @@ public class BookController {
     @PostMapping
     public Book createBook(@RequestBody Book book) {
         return bookRepository.save(book);
-    }
-
-    @GetMapping("/recommend")
-    public String showRecommendationForm(Model model) {
-        model.addAttribute("bookAttributes", new BookAttributes());
-        return "recommendation-form";
-    }
-
-    @PostMapping("/recommend")
-    public String getRecommendations(@ModelAttribute BookAttributes bookAttributes, Model model) {
-        String recommendations = bookService.recommendBooks(bookAttributes);
-        model.addAttribute("recommendations", recommendations);
-        return "recommendation-result";
     }
 }
