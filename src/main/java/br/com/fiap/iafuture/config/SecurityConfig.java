@@ -1,35 +1,32 @@
-package br.com.fiap.iafuture.auth;
+package br.com.fiap.iafuture.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain config(HttpSecurity http, AuthorizationFilter authorizationFilter) throws Exception {
-        http.csrf(csrf -> csrf.disable())
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/login", "/register", "/error", "/login/verify").permitAll()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin(form -> form
-                        .loginPage("/")
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/books", true)
+                        .failureUrl("/login?error=true")
                         .permitAll()
-                        .defaultSuccessUrl("/home", true)
-                        .failureUrl("/?error=true")
-                        .usernameParameter("username")
-                        .passwordParameter("password")
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/?logout=true")
-                        .permitAll()
+                        .logoutSuccessUrl("/login")
                 );
 
         return http.build();

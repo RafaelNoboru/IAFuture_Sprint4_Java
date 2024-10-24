@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
+    <title>Book Recommendations</title>
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <h1 class="title">Recommended Books</h1>
+        <p th:text="${recommendations}"></p>
+        <a class="button is-link" href="/recommend">Make another recommendation</a>
+    </div>
+</section>
+</body>
+</html>
