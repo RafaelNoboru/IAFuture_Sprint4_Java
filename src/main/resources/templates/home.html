@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+            font-family: 'Arial', sans-serif;
+        }
+        .section {
+            padding: 3rem 1.5rem;
+        }
+        .title {
+            color: #4A4A4A;
+            margin-bottom: 2rem;
+        }
+        .card {
+            transition: transform 0.2s;
+            border-radius: 10px;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card-content {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .subtitle {
+            font-weight: bold;
+            color: #3273dc;
+        }
+        .columns {
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar is-link">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="/home">
+        </a>
+        <div class="navbar-burger" data-target="navbarMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <div id="navbarMenu" class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item" href="/books/recommend">Recomendar Livro</a>
+        </div>
+        <div class="navbar-end">
+            <a class="navbar-item" href="/logout">Sair</a>
+        </div>
+    </div>
+</nav>
+
+<section class="section">
+    <div class="container">
+        <h1 class="title has-text-centered">Welcome to Book Recommendations API</h1>
+        <div class="columns is-multiline">
+            <div class="column is-one-quarter" th:each="book : ${books}">
+                <div class="card">
+                    <div class="card-content">
+                        <h2 class="subtitle" th:text="${book.title}">Título do Livro</h2>
+                        <p><strong>Autor:</strong> <span th:text="${book.author}">Autor do Livro</span></p>
+                        <p><strong>Gênero:</strong> <span th:text="${book.genre}">Gênero do Livro</span></p>
+                        <p th:text="${book.description}">Descrição do Livro</p>
+                        <p><strong>Ano:</strong> <span th:text="${book.year}">Ano do Livro</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const burger = document.querySelector('.navbar-burger');
+        const menu = document.getElementById('navbarMenu');
+
+        burger.addEventListener('click', () => {
+            burger.classList.toggle('is-active');
+            menu.classList.toggle('is-active');
+        });
+    });
+</script>
+</body>
+</html>

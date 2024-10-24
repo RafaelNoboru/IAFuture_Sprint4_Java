@@ -8,7 +8,7 @@
 <section class="section">
     <div class="container">
         <h1 class="title">Book Recommendations</h1>
-        <form th:action="@{/recommend}" th:object="${bookAttributes}" method="post">
+        <form th:action="@{/books/recommend}" th:object="${bookAttributes}" method="post">
             <div class="field">
                 <label class="label">Genre</label>
                 <div class="control">

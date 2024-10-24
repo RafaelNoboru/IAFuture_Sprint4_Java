@@ -18,17 +18,17 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/register", "/error", "/oauth2/**", "/books").permitAll()
+                        .requestMatchers("/login", "/register", "/error", "/oauth2/**").permitAll()
                         .anyRequest().authenticated())
                 .oauth2Login(login -> login
                         .loginPage("/login")
-                        .defaultSuccessUrl("/books")
+                        .defaultSuccessUrl("/home", true)
                         .failureUrl("/login?error=true")
                         .permitAll()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/books", true)
+                        .defaultSuccessUrl("/home", true)
                         .failureUrl("/login?error=true")
                         .permitAll()
                 )
