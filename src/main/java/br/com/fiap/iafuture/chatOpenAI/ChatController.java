@@ -18,5 +18,4 @@ public class ChatController {
         model.addAttribute("response", response);
         return "openai";
     }
-
 }

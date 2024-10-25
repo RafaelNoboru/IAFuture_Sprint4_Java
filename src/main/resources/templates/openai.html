@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Home</title>
+    <title>OpenAI Chat</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 </head>
 <body>
 <section class="section">
     <div class="container">
-        <h1 class="title">OpenAI Completion</h1>
-        <p th:text="${response}">Response will appear here...</p>
+        <h1 class="title">Chat with OpenAI</h1>
+        <a class="button is-link mb-3" th:href="@{/home}">Back to Home</a>
+        <form th:action="@{/openai}" method="get">
+            <div class="field">
+                <label class="label">Digit your message:</label>
+                <div class="control">
+                    <input class="input" type="text" name="prompt" placeholder="Digit something..." required>
+                </div>
+            </div>
+            <div class="control">
+                <button class="button is-primary" type="submit">Send</button>
+            </div>
+        </form>
+        <div class="box">
+            <h2 class="subtitle">OpenAI Answer:</h2>
+            <p th:text="${response}">Answer will show here...</p>
+        </div>
     </div>
 </section>
 </body>
